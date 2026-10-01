@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>লাভ ক্যালকুলেটর - Love Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 30px 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            text-align: center;
+            border: 2px solid #ffccd5;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        input:focus {
+            border-color: #ff4d6d;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c9184a;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #fff0f3;
+            display: none;
+        }
+
+        .result h2 {
+            font-size: 32px;
+            color: #ff4d6d;
+            margin-bottom: 5px;
+        }
+
+        .result p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* অ্যাডভার্টাইজমেন্ট কন্টেইনার */
+        .ad-container {
+            width: 100%;
+            max-width: 730px;
+            min-height: 95px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .ad-container iframe {
+            width: 728px;
+            height: 90px;
+            border: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- উপরে ৩টি বিজ্ঞাপন -->
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+
+    <div class="card">
+        <h1>❤️ লাভ ক্যালকুলেটর ❤️</h1>
+        
+        <div class="input-group">
+            <div class="input-box">
+                <label for="firstName">তোমার নামের ১ম অক্ষর</label>
+                <input type="text" id="firstName" maxlength="1" placeholder="A">
+            </div>
+            <div class="input-box">
+                <label for="secondName">সঙ্গীর নামের ১ম অক্ষর</label>
+                <input type="text" id="secondName" maxlength="1" placeholder="B">
+            </div>
+        </div>
+
+        <button onclick="calculateLove()">ভালোবাসার পরিমাপ দেখো</button>
+
+        <div class="result" id="resultArea">
+            <h2 id="percentage">0%</h2>
+            <p id="message"></p>
+        </div>
+    </div>
+
+    <!-- নিচে ৭টি বিজ্ঞাপন (মোট ১০টি) -->
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+    <div class="ad-container"><iframe class="adFrame"></iframe></div>
+
+    <script>
+        function calculateLove() {
+            const letter1 = document.getElementById('firstName').value.trim().toUpperCase();
+            const letter2 = document.getElementById('secondName').value.trim().toUpperCase();
+            const resultArea = document.getElementById('resultArea');
+            const percentageElement = document.getElementById('percentage');
+            const messageElement = document.getElementById('message');
+
+            if (letter1 === "" || letter2 === "") {
+                alert("দয়া করে দুটি নামেরই প্রথম অক্ষর দিন!");
+                return;
+            }
+
+            const combinedCode = letter1.charCodeAt(0) + letter2.charCodeAt(0);
+            const lovePercentage = (combinedCode * 7) % 51 + 50; 
+
+            percentageElement.innerText = lovePercentage + "%";
+
+            if (lovePercentage >= 85) {
+                messageElement.innerText = "ওয়াও! চমৎকার ও খাঁটি ভালোবাসা! ❤️";
+            } else if (lovePercentage >= 70) {
+                messageElement.innerText = "খুবই সুন্দর সম্পর্ক! 💖";
+            } else {
+                messageElement.innerText = "ভালো সম্পর্ক, একটু যত্ন নিলে আরও সুন্দর হবে! ";
+            }
+
+            resultArea.style.display = "block";
+        }
+
+        // বিজ্ঞাপনের কন্টেন্ট
+        const adScriptHTML = `
+            <!DOCTYPE html>
+            <html>
+            <head><style>body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; background: transparent; }</style></head>
+            <body>
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '7920241d661982e3c0ec5e407c2aadef',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                <\/script>
+                <script type="text/javascript" src="https://www.highrevenueformat.com/7920241d661982e3c0ec5e407c2aadef/invoke.js"><\/script>
+            </body>
+            </html>
+        `;
+
+        // বিজ্ঞাপনগুলো স্মুথভাবে লোড করার ফাংশন
+        function loadAdsSequentially() {
+            const iframes = document.querySelectorAll('.adFrame');
+            iframes.forEach((iframe, index) => {
+                setTimeout(() => {
+                    const iframeDoc = iframe.contentWindow || iframe.contentDocument;
+                    const doc = iframeDoc.document || iframeDoc;
+                    doc.open();
+                    doc.write(adScriptHTML);
+                    doc.close();
+                }, index * 300); // ৩০০ মি.সে. পর পর ১টি করে লোড হবে
+            });
+        }
+
+        window.onload = function() {
+            loadAdsSequentially();
+        };
+    </script>
+
+</body>
+</html>
